@@ -19,6 +19,7 @@ func main() {
 		cb := model.FeedCallback{}
 		e := json.Unmarshal(b, &cb)
 		if e != nil {
+			log.Print(e)
 			c.JSON(400, gin.H { "message": "pong" })
 		} else {
 			mb, _ := json.Marshal(cb)
