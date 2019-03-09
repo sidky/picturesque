@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"log"
-	"os"
 )
 
 func main() {
@@ -15,7 +14,6 @@ func main() {
 		log.Print(c.Request.Body)
 		c.JSON(200, gin.H { "message": "pong" })
 	})
-	port := os.Getenv("PORT")
 	r.Run()
 }
 
