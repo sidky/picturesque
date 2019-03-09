@@ -1,1 +1,1 @@
-web: ./picturesque
+web: picturesque
