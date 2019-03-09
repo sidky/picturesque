@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"log"
-	"./model"
+	"picturesque/model"
 )
 
 func main() {
