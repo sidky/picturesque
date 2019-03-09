@@ -46,5 +46,5 @@ type FeedEntry struct {
 type FeedCallback struct {
 	Status FeedStatus `json:"status"`
 	Title *string `json:"title"`
-	Items *FeedEntry `json:"items"`
+	Items []FeedEntry `json:"items"`
 }
