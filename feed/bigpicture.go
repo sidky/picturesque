@@ -11,7 +11,7 @@ type BigPictureFeed struct {
 
 const FeedName = "bigpicture"
 
-func (b *BigPictureFeed) Handle(id string, url string, updated int64) (*Feed, error) {
+func (b BigPictureFeed) Handle(id string, url string, updated int64) (*Feed, error) {
 	resp, err := b.Parse(url)
 	if err != nil {
 		log.Printf("Unable to read  and parse %s: %v\n", url, err)

@@ -34,7 +34,7 @@ func NewFeed(feedName string, id string, title string, subHeader string, url str
 }
 
 type FeedHandler interface {
-	handle(id string, url string, updated int64)
+	Handle(id string, url string, updated int64) (*Feed, error)
 }
 
 type BaseFeedHandler struct { }
