@@ -1396,7 +1396,7 @@ func TestBigPictureFeedBuiler(t *testing.T) {
 	node, _ := goquery.NewDocumentFromReader(strings.NewReader(file))
 	handler := BigPictureFeed{}
 
-	resp, err := handler.ParseFeed(node)
+	resp, err := handler.ParseFeed("", node)
 	if err != nil {
 		t.Error("Should parse the file")
 	}

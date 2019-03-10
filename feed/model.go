@@ -12,14 +12,29 @@ type FeedImage struct {
 }
 
 type Feed struct {
+	FeedName string
+	ID string
 	Title string
-	Description string
+	SubHeader string
 	URL string
 	Images []FeedImage
+	UpdatedAt int64
+}
+
+func NewFeed(feedName string, id string, title string, subHeader string, url string, images []FeedImage, updatedAt int64) *Feed {
+	return &Feed{
+		FeedName: feedName,
+		ID: id,
+		Title: title,
+		SubHeader: subHeader,
+		URL: url,
+		Images: images,
+		UpdatedAt: updatedAt,
+	}
 }
 
 type FeedHandler interface {
-	handle(url string)
+	handle(id string, url string, updated int64)
 }
 
 type BaseFeedHandler struct { }
