@@ -13,7 +13,9 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H { "message": "pong" })
 	})
-	r.POST("/feed/update", func(c *gin.Context) {
+	r.POST("/feed/update/bigpicture", func(c *gin.Context) {
+		a := c.GetHeader("Authorization")
+		log.Printf("Auth: %s", a)
 		b, _ := ioutil.ReadAll(c.Request.Body)
 		log.Print(string(b))
 		cb := model.FeedCallback{}
