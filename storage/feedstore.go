@@ -2,12 +2,13 @@ package storage
 
 import (
 	"context"
-	firebase "firebase.google.com/go"
+	"firebase.google.com/go"
 	"firebase.google.com/go/db"
 	"google.golang.org/api/option"
 	"log"
 	"os"
 	"picturesque/feed"
+	"strings"
 )
 
 type FirebaseStore struct {
@@ -34,7 +35,7 @@ func (f *FirebaseStore) Init() {
 
 func (f *FirebaseStore) AddFeed(feed *feed.Feed) error {
 	ref := f.dbClient.NewRef(feed.FeedName)
-	entryRoot := ref.Child(string(feed.ID))
+	entryRoot := ref.Child(validId(feed.ID))
 
 	ctx := context.Background()
 
@@ -65,5 +66,13 @@ func (f *FirebaseStore) AddFeed(feed *feed.Feed) error {
 		}
 	}
 	return nil
+}
+
+func validId(id string) string {
+	invalids := []string{"\\", "/", ".", "$", "#", "[", "]"}
+	for _, r := range invalids {
+		id = strings.ReplaceAll(id, r, "_")
+	}
+	return id
 }
 
