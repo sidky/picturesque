@@ -49,6 +49,13 @@ func main() {
 			c.JSON(200, gin.H { "message": "pong" })
 		}
 	})
+
+	r.POST("/feed/update/infocus", func (c *gin.Context) {
+		b, _ := ioutil.ReadAll(c.Request.Body)
+		log.Print(string(b))
+
+		c.JSON(200, gin.H{"message": "successful"})
+	})
 	r.Run()
 }
 
