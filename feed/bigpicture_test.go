@@ -1,6 +1,7 @@
 package feed
 
 import (
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"strings"
 	"testing"
@@ -1396,11 +1397,15 @@ func TestBigPictureFeedBuiler(t *testing.T) {
 	node, _ := goquery.NewDocumentFromReader(strings.NewReader(file))
 	handler := BigPictureFeed{}
 
-	resp, err := handler.ParseFeed("", node)
+	resp, err := handler.ParseFeed("", "id", 12345, node)
 	if err != nil {
 		t.Error("Should parse the file")
 	}
 	if resp.Title != "Globe staff photos of the month, February 2019" {
-		t.Error("Titles didn't match. Found: %s", resp.Title)
+		t.Errorf("Titles didn't match. Found: %s", resp.Title)
+	}
+
+	for _, img := range resp.Images {
+		fmt.Printf("url: %s\n", img.Image)
 	}
 }

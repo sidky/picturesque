@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"picturesque/feed"
+	"strconv"
 	"strings"
 )
 
@@ -53,7 +54,7 @@ func (f *FirebaseStore) AddFeed(feed *feed.Feed) error {
 	imageRoot := entryRoot.Child("images")
 
 	for n, img := range feed.Images {
-		indexRoot := imageRoot.Child(string(n))
+		indexRoot := imageRoot.Child(strconv.Itoa(n))
 
 		err := indexRoot.Update(ctx, map[string]interface{} {
 			"image": img.Image,
