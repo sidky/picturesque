@@ -16,6 +16,7 @@ func main() {
 	r.POST("/feed/update/bigpicture", func(c *gin.Context) {
 		a := c.GetHeader("Authorization")
 		log.Printf("Auth: %s", a)
+		log.Printf("All headers: %v\n", c.Request.Header)
 		b, _ := ioutil.ReadAll(c.Request.Body)
 		log.Print(string(b))
 		cb := model.FeedCallback{}
