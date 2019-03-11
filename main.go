@@ -63,6 +63,7 @@ func main() {
 
 	bigPicture := feed.BigPictureFeed{}
 	inFocus := feed.InFocusFeed{}
+	inPicture := feed.InPictureFeed{}
 	feedStore := storage.FirebaseStore{}
 	feedStore.Init()
 
@@ -74,12 +75,7 @@ func main() {
 		handleSuperfeedrCallback(c, inFocus, &feedStore)
 	})
 	r.POST("/feed/update/inpicture", func (c *gin.Context) {
-		b, _ := ioutil.ReadAll(c.Request.Body)
-		cb := model.FeedCallback{}
-		json.Unmarshal(b, &cb)
-
-		r, _ := json.Marshal(cb)
-		log.Print(string(r))
+		handleSuperfeedrCallback(c, inPicture, &feedStore)
 	})
 
 	r.Run()

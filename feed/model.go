@@ -1,6 +1,7 @@
 package feed
 
 import (
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
@@ -11,6 +12,10 @@ type FeedImage struct {
 	Caption string
 }
 
+func (f FeedImage) String() string {
+	return fmt.Sprintf("{Image: %s, Caption: %s}", f.Image, f.Caption)
+}
+
 type Feed struct {
 	FeedName string
 	ID string
@@ -19,6 +24,11 @@ type Feed struct {
 	URL string
 	Images []FeedImage
 	UpdatedAt int64
+}
+
+func (f Feed) String() string {
+	return fmt.Sprintf("{FeedName: %s, ID: %s, Title: %s, SubHeader: %s, URL: %s, Images: %v, UpdatedAt: %d}",
+		f.FeedName, f.ID, f.Title, f.SubHeader, f.URL, f.Images, f.UpdatedAt)
 }
 
 func NewFeed(feedName string, id string, title string, subHeader string, url string, images []FeedImage, updatedAt int64) *Feed {
