@@ -3,6 +3,7 @@ package feed
 import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
+	"strings"
 )
 
 type BigPictureFeed struct {
@@ -39,7 +40,11 @@ func (b *BigPictureFeed) ParseFeed(url string, id string, updated int64, doc *go
 	photoCaptions := make([]string, caption.Length())
 
 	photos.Each(func (index int, node *goquery.Selection) {
-		urls[index], _ = node.Attr("src")
+		url, _ := node.Attr("src")
+		if strings.HasPrefix(url, "//") {
+			url = "https:" + url
+		}
+		urls[index] = url
 	})
 
 	caption.Each(func (index int, node *goquery.Selection) {
