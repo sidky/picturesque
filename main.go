@@ -77,7 +77,9 @@ func main() {
 		b, _ := ioutil.ReadAll(c.Request.Body)
 		cb := model.FeedCallback{}
 		json.Unmarshal(b, &cb)
-		log.Print(cb)
+
+		r, _ := json.Marshal(cb)
+		log.Print(string(r))
 	})
 
 	r.Run()
