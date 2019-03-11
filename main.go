@@ -73,6 +73,13 @@ func main() {
 	r.POST("/feed/update/infocus", func (c *gin.Context) {
 		handleSuperfeedrCallback(c, inFocus, &feedStore)
 	})
+	r.POST("/feed/update/inpicture", func (c *gin.Context) {
+		b, _ := ioutil.ReadAll(c.Request.Body)
+		cb := model.FeedCallback{}
+		json.Unmarshal(b, &cb)
+		log.Print(cb)
+	})
+
 	r.Run()
 }
 
