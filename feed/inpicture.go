@@ -33,14 +33,21 @@ func (ip *InPictureFeed) ParseFeed(url string, id string, updated int64, doc *go
 	log.Printf("SUBHEADER: %s\n", subheader)
 
 	items := doc.Find(".gallery__item")
-	feedImages := make([]FeedImage, items.Length())
+	feedImages := make([]FeedImage, 0)
 
 	items.Each(func(index int, selection *goquery.Selection) {
 		caption := strings.TrimSpace(selection.Find(".gallery__caption").Text())
-		srcNode := selection.Find(".gallery__img-container picture img")
-		url, _ := srcNode.Attr("src")
+		srcNode := selection.Find(".gallery__img-container picture").Find("source").First()
+		url, _ := srcNode.Attr("srcset")
 
-		feedImages[index] = FeedImage{Caption: caption, Image: url}
+		if len(caption) > 0 && len(url) > 0 {
+			feedImages = append(feedImages, FeedImage{Caption: caption, Image: fixSrcSet(url)})
+		}
 	})
 	return NewFeed(InPictureFeedName, id, title, subheader, url, feedImages, updated), nil
+}
+
+func fixSrcSet(srcsetUrl string) string {
+	index := strings.IndexRune(srcsetUrl, ' ')
+	return srcsetUrl[:index]
 }
