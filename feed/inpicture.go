@@ -40,7 +40,7 @@ func (ip *InPictureFeed) ParseFeed(url string, id string, updated int64, doc *go
 		srcNode := selection.Find(".gallery__img-container picture").Find("source").First()
 		url, _ := srcNode.Attr("srcset")
 
-		if len(caption) > 0 && len(url) > 0 {
+		if len(url) > 0 {
 			feedImages = append(feedImages, FeedImage{Caption: caption, Image: fixSrcSet(url)})
 		}
 	})
